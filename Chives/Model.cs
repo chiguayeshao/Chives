@@ -100,6 +100,8 @@ namespace Chives
             double rate = (allPrice- allInvestAmount) / allInvestAmount;
             return rate;
         }
+
+        //测试一下
     }
 
 }
