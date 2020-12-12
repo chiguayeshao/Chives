@@ -11,28 +11,41 @@ namespace Chives
         {
             //韭菜价格（以后使用爬虫获取）
             double currentPrice = 0;
-            Console.WriteLine("请输入韭菜价格");
-            currentPrice = Double.Parse(Console.ReadLine()); 
-            Console.WriteLine("当前韭菜价格为：" + currentPrice);
-
             //投入金额
             double investAmount = 0;
-            Console.WriteLine("请输入购买金额");
-            investAmount = Double.Parse(Console.ReadLine());
 
-            //卖出价位
-            double sellPrice = 0;
-            Console.WriteLine("请输入卖出价位");
-            sellPrice = Double.Parse(Console.ReadLine());
-
-
-            //将每次购买的存入list
+            //将每次购买的个数存入list
             List<double> listCalCount = new List<double>();
-            listCalCount.Add(model.CalCount(1000, 100));
 
             //将每次投入的金额存入list
             List<double> listInvestAmount = new List<double>();
-            listInvestAmount.Add(investAmount);
+
+            //是否结束割韭菜
+            string stop = "";
+
+            while (stop != "yes")
+            {
+                Console.WriteLine("请输入韭菜价格 please enter current chives price");
+                currentPrice = Double.Parse(Console.ReadLine());
+                Console.WriteLine("当前韭菜价格为 current chives price is：" + currentPrice);
+
+                Console.WriteLine("请输入购买金额 please enter investAmount");
+                investAmount = Double.Parse(Console.ReadLine());
+                Console.WriteLine("购买金额为 investAmount is:" + investAmount);
+
+                //将每次购买的个数存入list
+                listCalCount.Add(model.CalCount(investAmount, currentPrice));
+                //将每次投入的金额存入list
+                listInvestAmount.Add(investAmount);
+
+                Console.WriteLine("是否结束割韭菜? is stop cut chives ?：yes/no");
+                stop = Console.ReadLine();
+            }
+
+            //卖出价位
+            double sellPrice = 0;
+            Console.WriteLine("请输入卖出价位 please enter sellPrice");
+            sellPrice = Double.Parse(Console.ReadLine());
 
             //计算总个数
             double allCount;
@@ -40,7 +53,7 @@ namespace Chives
 
             //计算总共卖出的金额
             double allPrice;
-            allPrice = model.CalAllPrice(allCount , sellPrice);
+            allPrice = model.CalAllPrice(allCount, sellPrice);
 
             //计算总投入金额
             double allInvestAmount;
@@ -50,7 +63,7 @@ namespace Chives
             double rate;
             rate = model.CalRate(allPrice, allInvestAmount);
 
-            Console.WriteLine("割韭菜获得的收益率为"+rate*100+"%");
+            Console.WriteLine("割韭菜获得的收益率为 cut chives rate of return" + rate * 100 + "%");
 
             //Console.WriteLine(model.CalAllcount(listCalCount));
 
